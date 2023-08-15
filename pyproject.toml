@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "mjml-utils"
+version = "0.1.0"
+description = ""
+authors = ["Tom Forbes <tom@tomforb.es>"]
+readme = "README.md"
+packages = [{include = "mjml_utils"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+typer = {extras = ["full"], version = "^0.9.0"}
+rich = "^13.5.2"
+watchdog = "^3.0.0"
+
+[tool.poetry.scripts]
+mjml-utils = "mjml_utils.cli:app"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
