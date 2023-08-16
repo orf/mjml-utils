@@ -77,12 +77,13 @@ def compile_mjml_file(path: Path):
     compiled_template = run_mjml(str(path))
     if compiled_template.startswith("<!-- FILE:"):
         compiled_template = "\n".join(compiled_template.split("\n", 1)[1:])
-
+    compiled_path = path.parent / f"{path.stem}.html"
+    relative_path = compiled_path.relative_to(path.parent)
+    compiled_template_header = f"{{# Auto generated from ./{relative_path}. Changes to this file will be overwritten! #}}"
     # Add the template headers back
-    compiled_template = f"{django_template_header}\n{compiled_template}"
+    compiled_template = f"{compiled_template_header}\n\n{django_template_header}\n{compiled_template}"
 
     # Write the compiled template to the same directory as the mjml file
-    compiled_path = path.parent / f"{path.stem}.html"
     compiled_path.write_text(compiled_template)
     print(f'Compiled template written to {compiled_path}')
 
